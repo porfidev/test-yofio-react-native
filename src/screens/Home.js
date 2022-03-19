@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addUser} from '../actions/UsersActions.js';
 
-function HomeScreen({users, addUser}) {
+function HomeScreen({users, addUser, apiUrl}) {
   return (
     <View
       style={{
@@ -14,7 +14,8 @@ function HomeScreen({users, addUser}) {
         backgroundColor: 'black',
       }}>
       <Text>Home Screen</Text>
-      <Text>{JSON.stringify({users})}</Text>
+      <Text>Users: {JSON.stringify(users)}</Text>
+      <Text>APIUrl: {JSON.stringify(apiUrl)}</Text>
 
       <Button
         title={`Add Friend`}
@@ -26,6 +27,7 @@ function HomeScreen({users, addUser}) {
 
 const mapStateToProps = state => ({
   users: state.users,
+  apiUrl: state.apiUrl,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({addUser}, dispatch);
