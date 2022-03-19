@@ -6,6 +6,9 @@ const usersReducer = (state = INITIAL_STATE.users, action) => {
     case ACTIONS.ADD_USER:
       console.log('ENTRANDO A ACTION', state);
       return [...state, action.payload];
+    case ACTIONS.SET_USERS:
+      console.log('ENTRNADO A SETEAR UJSUARIO', action);
+      return [...state, ...action.payload];
     default:
       return state;
   }

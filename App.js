@@ -2,12 +2,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import reducers from './src/reducers/index.js';
+import rootSaga from './src/sagas/index.js';
 import HomeScreen from './src/screens/Home.js';
 
 const Stack = createNativeStackNavigator();
-const store = createStore(reducers);
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 const App = () => {
   return (

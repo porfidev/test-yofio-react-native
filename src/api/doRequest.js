@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const doRequest = async ({url, method, requestBody}) => {
+const doRequest = ({url, method, requestBody}) => {
   try {
     const requestParams = {
       url,
@@ -12,7 +12,7 @@ const doRequest = async ({url, method, requestBody}) => {
       data: requestBody,
     };
 
-    return await axios(requestParams);
+    return axios(requestParams).then(response => response.data);
   } catch (error) {
     return errorHandler(error);
   }

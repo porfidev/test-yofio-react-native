@@ -1,7 +1,9 @@
 import {doRequest} from './doRequest.js';
 
-const obtainUsers = async url => {
-  const response = await doRequest(`${url}`);
+const obtainUsers = url => {
+  return doRequest({url, method: 'GET'}).then(response => {
+    return response;
+  });
 };
 
 export {obtainUsers};

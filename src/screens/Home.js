@@ -2,9 +2,9 @@ import React from 'react';
 import {Button, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addUser} from '../actions/UsersActions.js';
+import {addUser, getAllUsers} from '../actions/UsersActions.js';
 
-function HomeScreen({users, addUser, apiUrl}) {
+function HomeScreen({users, addUser, apiUrl, getAllUsers}) {
   return (
     <View
       style={{
@@ -21,6 +21,8 @@ function HomeScreen({users, addUser, apiUrl}) {
         title={`Add Friend`}
         onPress={() => addUser({name: 'Rumualdo'})}
       />
+
+      <Button title={`REQUEST ALL`} onPress={() => getAllUsers()} />
     </View>
   );
 }
@@ -30,6 +32,7 @@ const mapStateToProps = state => ({
   apiUrl: state.apiUrl,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({addUser}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({addUser, getAllUsers}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
