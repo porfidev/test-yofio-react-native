@@ -1,21 +1,50 @@
-import React from 'react';
-import {Button, Text, View} from 'react-native';
+import React, { useEffect, useState } from "react";
+import { Button, ScrollView, Text, View, StyleSheet } from "react-native";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addUser, getAllUsers} from '../actions/UsersActions.js';
+import MapView, { Marker } from "react-native-maps";
+import Geolocation from '@react-native-community/geolocation';
+
+
 
 function HomeScreen({users, addUser, apiUrl, getAllUsers}) {
+  const [location, setLocation] = useState({latitude: 0, longitude: 0});
+  useEffect(() => {
+    Geolocation.getCurrentPosition(info =>{
+      console.log(info.coords);
+      setLocation(info.coords);
+    });
+  }, []);
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: 'black',
       }}>
       <Text>Home Screen</Text>
       <Text>Users: {JSON.stringify(users)}</Text>
       <Text>APIUrl: {JSON.stringify(apiUrl)}</Text>
+
+
+      <View style={{ width: '100%', height: 300, backgroundColor: 'pink'}}>
+        <MapView
+          style={{
+              ...StyleSheet.absoluteFillObject,
+            }}
+          initialRegion={{
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Marker
+            coordinate={{ latitude : location.latitude , longitude : location.longitude }}
+          />
+        </MapView>
+      </View>
+
 
       <Button
         title={`Add Friend`}
@@ -23,7 +52,7 @@ function HomeScreen({users, addUser, apiUrl, getAllUsers}) {
       />
 
       <Button title={`REQUEST ALL`} onPress={() => getAllUsers()} />
-    </View>
+    </ScrollView>
   );
 }
 
