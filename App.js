@@ -1,3 +1,4 @@
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
@@ -8,7 +9,8 @@ import reducers from './src/reducers/index.js';
 import rootSaga from './src/sagas/index.js';
 import HomeScreen from './src/screens/Home.js';
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+//const Stack = createNativeStackNavigator();
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(reducers, applyMiddleware(sagaMiddleware));
@@ -19,9 +21,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={HomeScreen} />
+        </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
   );
