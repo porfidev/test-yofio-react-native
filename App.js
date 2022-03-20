@@ -39,30 +39,6 @@ const customColorsTheme = {
   ...DarkTheme,
 };
 
-function CustomDrawerContent(props) {
-  console.log(JSON.stringify(props.state, null, 2));
-
-  const newProps = {
-    ...props,
-    state: {
-      ...props.state,
-      routeNames: [...props.state.routeNames.filter(name => name !== 'Splash')],
-      routes: [...props.state.routes.filter(route => route.name !== 'Splash')],
-    },
-  };
-
-  console.log(JSON.stringify(newProps, null, 2));
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Help"
-        onPress={() => Linking.openURL('https://mywebsite.com/help')}
-      />
-    </DrawerContentScrollView>
-  );
-}
-
 const App = () => {
   const colorScheme = useColorScheme();
   return (

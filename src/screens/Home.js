@@ -45,7 +45,7 @@ function HomeScreen({users, addUser, apiUrl, getAllUsers, navigation}) {
       {/*  onPress={() => addUser({name: 'Rumualdo'})}*/}
       {/*/>*/}
 
-      {/*<Button title={`REQUEST ALL`} onPress={() => getAllUsers()} />*/}
+      <Button title={`REQUEST ALL`} onPress={() => getAllUsers()} />
 
       {/*<Button title={'OPEN'} onPress={() => navigation.openDrawer()} />*/}
     </ScrollView>

@@ -4,10 +4,23 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addUser, getAllUsers} from '../actions/UsersActions.js';
 
-const UserDetail = () => {
+const UserDetail = ({route, navigation}) => {
+  const {user} = route.params;
   return (
     <View>
       <Text>User Detail</Text>
+      <Text>Nombre: {user.name}</Text>
+      <Text>Correo: {user.email}</Text>
+      <Text>Teléfono: {user.phone}</Text>
+      <Text>Dirección:</Text>
+      <View>
+        {Object.keys(user.address).map(data => (
+          <Text>
+            {data}:{' '}
+            {typeof user.address[data] === 'string' && user.address[data]}
+          </Text>
+        ))}
+      </View>
     </View>
   );
 };
