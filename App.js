@@ -23,6 +23,8 @@ import SplashScreen from './src/screens/Splash/assets/Splash.js';
 import UserDetail from './src/screens/UserDetail.js';
 import UsersScreen from './src/screens/Users.js';
 import {LogBox} from 'react-native';
+import {COLORS} from './src/theme/colors.js';
+import {STYLES} from './src/theme/styles.js';
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
@@ -39,13 +41,27 @@ const customColorsTheme = {
   ...DarkTheme,
 };
 
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+}
+
 const App = () => {
   const colorScheme = useColorScheme();
   return (
     <Provider store={store}>
       <NavigationContainer
         theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Drawer.Navigator initialRouteName="Splash">
+        <Drawer.Navigator
+          initialRouteName="Splash"
+          screenOptions={{
+            drawerActiveBackgroundColor: COLORS.background,
+            drawerLabelStyle: {color: COLORS.title},
+            drawerStyle: {backgroundColor: COLORS.primaryDark},
+          }}>
           <Drawer.Screen
             name="Splash"
             component={SplashScreen}
@@ -57,15 +73,39 @@ const App = () => {
             }}
           />
           <Drawer.Screen
-            name="Bienvenida"
+            name="Home"
             component={HomeScreen}
-            options={{headerTitle: ''}}
+            options={{
+              title: 'Inicio',
+              headerStyle: {
+                backgroundColor: COLORS.background,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                display: 'none',
+              },
+            }}
           />
-          <Drawer.Screen name="Usuarios" component={UsersScreen} />
           <Drawer.Screen
-            name="Detalle"
+            name="Users"
+            component={UsersScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: COLORS.background,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                display: 'none',
+              },
+            }}
+          />
+          <Drawer.Screen
+            name="UserDetail"
             component={UserDetail}
             options={{
+              headerTitleStyle: {
+                display: 'none',
+              },
               drawerItemStyle: {
                 display: 'none',
               },

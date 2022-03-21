@@ -1,6 +1,7 @@
 import moment from 'moment/min/moment-with-locales.js';
 import React, {useEffect, useState} from 'react';
 import {NativeModules, Text, View} from 'react-native';
+import {COLORS} from '../theme/colors.js';
 
 const locale = NativeModules.I18nManager.localeIdentifier;
 moment.locale(locale);
@@ -20,8 +21,17 @@ const CurrentTime = () => {
   }, []);
   return (
     <View>
-      <Text>{currentDate}</Text>
-      <Text>{time}</Text>
+      <Text
+        style={{
+          color: COLORS.cardText,
+          textAlign: 'center',
+          fontSize: 24,
+        }}>
+        {currentDate}
+      </Text>
+      <Text style={{color: COLORS.cardText, textAlign: 'center', fontSize: 18}}>
+        {time}
+      </Text>
     </View>
   );
 };
