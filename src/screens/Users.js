@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Button,
   FlatList,
+  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -11,7 +12,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addUser, getAllUsers} from '../actions/UsersActions.js';
+import {getAllUsers} from '../actions/UsersActions.js';
 import {COLORS} from '../theme/colors.js';
 import {STYLES} from '../theme/styles.js';
 
@@ -37,18 +38,33 @@ const UsersScreen = ({navigation, getAllUsers, users}) => {
   const renderUser = ({item}) => {
     return (
       <Pressable
+        style={({pressed}) => [
+          {
+            paddingVertical: 20,
+            paddingHorizontal: 20,
+            marginVertical: 4,
+            borderRadius: 10,
+            backgroundColor: pressed ? 'gray' : COLORS.cardBackground,
+          },
+        ]}
         onPress={() => navigation.navigate('UserDetail', {user: item})}>
         <View
           style={{
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            backgroundColor: COLORS.cardBackground,
-            marginVertical: 4,
-            borderRadius: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
           }}>
-          <Text style={{color: COLORS.cardText, fontSize: 18}}>
+          <Text
+            style={{color: COLORS.cardText, fontSize: 18, fontWeight: 'bold'}}>
             {item.name}
           </Text>
+
+          <View>
+            <Image
+              source={{uri: 'https://i.pravatar.cc/150?img=' + item.id}}
+              style={{width: 60, height: 60, borderRadius: 50}}
+            />
+          </View>
         </View>
       </Pressable>
     );

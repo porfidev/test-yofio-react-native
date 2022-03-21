@@ -11,10 +11,18 @@ import {
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {Linking, Text, useColorScheme} from 'react-native';
+import {
+  Button,
+  Image,
+  Linking,
+  Pressable,
+  Text,
+  useColorScheme,
+} from 'react-native';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import BackButton from './src/components/BackButton/BackButton.js';
 import reducers from './src/reducers/index.js';
 import rootSaga from './src/sagas/index.js';
 import HomeScreen from './src/screens/Home.js';
@@ -102,14 +110,21 @@ const App = () => {
           <Drawer.Screen
             name="UserDetail"
             component={UserDetail}
-            options={{
+            options={({navigation, route}) => ({
+              headerStyle: {
+                backgroundColor: COLORS.background,
+              },
+              headerLeft: () => (
+                <BackButton onPress={() => navigation.navigate('Users')} />
+              ),
+              headerTintColor: '#fff',
               headerTitleStyle: {
                 display: 'none',
               },
               drawerItemStyle: {
                 display: 'none',
               },
-            }}
+            })}
           />
         </Drawer.Navigator>
       </NavigationContainer>
